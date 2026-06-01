@@ -1,5 +1,6 @@
 package com.fitness.userservice.service;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import com.fitness.userservice.dto.RegisterRequest;
@@ -20,17 +21,29 @@ public class UserService {
 		
 		if(repository.existsByEmail(request.getEmail()))
 		{
-			throw new RuntimeException("Email already exists");
+			User existingUser=repository.findByEmail(request.getEmail());
+			UserResponse userResponse=new UserResponse();
+			userResponse.setId(existingUser.getId());
+			userResponse.setKeycloakId(existingUser.getKeycloakId());
+			userResponse.setFirstName(existingUser.getFirstName());
+			userResponse.setPassword(existingUser.getPassword());
+			userResponse.setEmail(existingUser.getEmail());
+			userResponse.setLastName(existingUser.getLastName());
+			userResponse.setCreatedAt(existingUser.getCreatedAt());
+			userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+			return userResponse;
 		}
 		User user=new User();
 		user.setEmail(request.getEmail());
 		user.setPassword(request.getPassword());
+		user.setKeycloakId(request.getKeycloakId());
 		user.setFirstName(request.getFirstName());
 		user.setLastName(request.getLastName());
 		
 		User savedUser=repository.save(user);
 		UserResponse userResponse=new UserResponse();
 		userResponse.setId(savedUser.getId());
+		userResponse.setKeycloakId(savedUser.getKeycloakId());
 		userResponse.setFirstName(savedUser.getFirstName());
 		userResponse.setPassword(savedUser.getPassword());
 		userResponse.setEmail(savedUser.getEmail());
@@ -56,10 +69,10 @@ public class UserService {
 		return userResponse;
 		
 	}
-	public Boolean existByUserId(String userId) {
+	public Boolean existByKeycloakId(String userId) {
 		log.info("Calling USer Validation API for userId: {}",userId);
 		// TODO Auto-generated method stub
-		return repository.existsById(userId);
+		return repository.existsByKeycloakId(userId);
 	}
-
+	
 }
