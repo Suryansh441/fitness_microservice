@@ -7,10 +7,12 @@ import {
   MenuItem,
   Button
 } from "@mui/material";
+
 import React, { useState } from "react";
 import { addActivity } from "../services/api";
 
 const ActivityForm = ({ onActivityAdded }) => {
+
   const [activity, setActivity] = useState({
     type: "RUNNING",
     duration: "",
@@ -36,16 +38,29 @@ const ActivityForm = ({ onActivityAdded }) => {
         caloriesBurned: "",
         additionalMetrics: {}
       });
+
     } catch (error) {
-      console.error("Error adding activity:", error);
+      console.error(
+        "Error adding activity:",
+        error
+      );
     }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ mb: 4 }}
+    >
 
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel>Activity Type</InputLabel>
+      <FormControl
+        fullWidth
+        sx={{ mb: 2 }}
+      >
+        <InputLabel>
+          Activity Type
+        </InputLabel>
 
         <Select
           value={activity.type}
@@ -57,9 +72,43 @@ const ActivityForm = ({ onActivityAdded }) => {
             })
           }
         >
-          <MenuItem value="RUNNING">Running</MenuItem>
-          <MenuItem value="WALKING">Walking</MenuItem>
-          <MenuItem value="CYCLING">Cycling</MenuItem>
+
+          <MenuItem value="RUNNING">
+            Running
+          </MenuItem>
+
+          <MenuItem value="WALKING">
+            Walking
+          </MenuItem>
+
+          <MenuItem value="CYCLING">
+            Cycling
+          </MenuItem>
+
+          <MenuItem value="SWIMMING">
+            Swimming
+          </MenuItem>
+
+          <MenuItem value="WEIGHT_TRAINING">
+            Weight Training
+          </MenuItem>
+
+          <MenuItem value="YOGA">
+            Yoga
+          </MenuItem>
+
+          <MenuItem value="HIIT">
+            HIIT
+          </MenuItem>
+
+          <MenuItem value="CARDIO">
+            Cardio
+          </MenuItem>
+
+          <MenuItem value="STRETCHING">
+            Stretching
+          </MenuItem>
+
         </Select>
       </FormControl>
 
@@ -91,7 +140,10 @@ const ActivityForm = ({ onActivityAdded }) => {
         }
       />
 
-      <Button type="submit" variant="contained">
+      <Button
+        type="submit"
+        variant="contained"
+      >
         Add Activity
       </Button>
 
