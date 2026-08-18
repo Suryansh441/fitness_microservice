@@ -67,6 +67,14 @@ export const getActivityDetail = (id) => {
 
 
 /*
+ * Delete activity
+ */
+export const deleteActivity = (id) => {
+    return api.delete(`/activities/${id}`);
+};
+
+
+/*
  * ==========================================
  * AI RECOMMENDATION APIs
  * ==========================================
